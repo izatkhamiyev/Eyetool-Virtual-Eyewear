@@ -106,7 +106,6 @@ function init_faceFilter(videoSettings){
 
         //called at each render iteration (drawing loop) :
         callbackTrack: function(detectState){
-            console.log("Blyat2")
             if (ISDETECTED && detectState.detected<SETTINGS.detectionThreshold-SETTINGS.detectionHysteresis){
                 //DETECTION LOST
                 detect_callback(false);
