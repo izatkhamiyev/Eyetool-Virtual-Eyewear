@@ -111,7 +111,7 @@ function init_faceFilter(videoSettings){
                 detect_callback(false);
                 ISDETECTED=false;
             } else if (!ISDETECTED && detectState.detected>SETTINGS.detectionThreshold+SETTINGS.detectionHysteresis){
-                //FACE DETECTED
+                //FACE DETECTED 
                 detect_callback(true);
                 ISDETECTED=true;
             }
