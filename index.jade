@@ -1,0 +1,19 @@
+doctype
+html
+  head
+    meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
+    meta(http-equiv="content-language" content="en-EN" )
+    title EYETOOL TRY ON
+    script(type="text/javascript" src="./dist/jeelizFaceFilter.js")
+
+    script(type="text/javascript" src="./libs/threejs/v97/three.min.js")
+
+    script(type="text/javascript" src="./assets/OBJLoader.js")
+    script(type="text/javascript" src="./helpers/JeelizResizer.js")
+
+    script(type="text/javascript" src="./helpers/JeelizThreejsHelper.js")
+    script(type="text/javascript" src="./demo.js")
+    link(rel='stylesheet', href='./appearance/style.css')
+  body(onload="main(`#{pathToModel}`)" style={color: 'white'})
+    canvas#jeeFaceFilterCanvas(width='600', height='600')
+   

@@ -1,10 +1,13 @@
 
-// "use strict";
+if(typeof exports == "undefined"){
+	exports = this;
+}
 
 let THREECAMERA;
 var THREEFACEOBJ3D, THREEFACEOBJ3DPIVOTED;
 var LEFTEARTEMPLE, RIGHTEARTEMPLE;
 var ISDETECTED=false, ISLOADED=false;
+
 
 var SETTINGS={
     rotationOffsetX: 0, //negative -> look upper. in radians
@@ -25,7 +28,8 @@ function detect_callback(faceIndex, isDetected) {
 }
 
 // build the 3D. called once when Jeeliz Face Filter is OK
-function init_threeScene(spec) {
+function init_threeScene(spec, pathToModel) {
+    
     const threeStuffs = THREE.JeelizHelper.init(spec, detect_callback);
     
     THREEFACEOBJ3D=new THREE.Object3D();
@@ -49,7 +53,7 @@ function init_threeScene(spec) {
     // load a resource
     loader.load(
         // resource URL
-        './models/glasses-without-temple.obj',
+        pathToModel,
         // called when resource is loaded
         function ( object ) {
             // object.position.set(-0.5, -0.5, -0.5);
@@ -79,16 +83,18 @@ function init_threeScene(spec) {
 } // end init_threeScene()
 
 //launched by body.onload() :
-function main(){
+function main(pathToModel){
+    console.log(pathToModel);
     JeelizResizer.size_canvas({
         canvasId: 'jeeFaceFilterCanvas',
         callback: function(isError, bestVideoSettings){
-            init_faceFilter(bestVideoSettings);
+            init_faceFilter(bestVideoSettings, pathToModel);
         }
     })
 } //end main()
 
-function init_faceFilter(videoSettings){
+function init_faceFilter(videoSettings, pathToModel){
+    console.log(pathToModel)
     JEEFACEFILTERAPI.init({
         followZRot: true,
         canvasId: 'jeeFaceFilterCanvas',
@@ -101,7 +107,7 @@ function init_faceFilter(videoSettings){
           }
 
           console.log('INFO : JEEFACEFILTERAPI IS READY');
-          init_threeScene(spec);
+          init_threeScene(spec, pathToModel);
         }, //end callbackReady()
 
         //called at each render iteration (drawing loop) :

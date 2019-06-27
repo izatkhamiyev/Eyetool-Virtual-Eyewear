@@ -6,11 +6,20 @@ var router = express.Router();
 var THREE = require('three');
 
 app.use(express.static(__dirname));
+app.set('views', __dirname );
+app.set('view engine', 'jade')
 
-app.get('/', (req, res) =>{
-    res.send("PIDR")
-});
+app.get("/:id", function(req, res) {
+    pathToModel = `./models/${req.params.id}.obj`;
+    res.render('index', {pathToModel: pathToModel});
+  });
 
+// app.get('/:id', (req, res, next) =>{
+//     pathToModel = `./models/${req.params.id}.obj`;
+//     res.sendFile(path.join(__dirname, 'index.jade'), {pt: pathToModel});
+//     // demo.changePath(pathToModel);
+    
+// });
 
 app.listen(PORT, function() {
     console.log(`Listening on Port ${PORT}`);
