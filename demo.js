@@ -80,6 +80,13 @@ function init_threeScene(spec, pathToModel) {
     //CREATE THE CAMERA
     const aspecRatio=spec.canvasElement.width / spec.canvasElement.height;
     THREECAMERA=new THREE.PerspectiveCamera(20, aspecRatio, 0.1, 100);
+
+
+    const ambient = new THREE.AmbientLight(0xffffff, 1);
+    threeStuffs.scene.add(ambient)
+
+    // var dirLight = new THREE.DirectionalLight(0xffffff);
+    // dirLight.position.set(100, 1000, 100);
 } // end init_threeScene()
 
 //launched by body.onload() :
