@@ -4,7 +4,7 @@ if(typeof exports == "undefined"){
 }
 
 let THREECAMERA;
-var THREEFACEOBJ3D, THREEFACEOBJ3DPIVOTED;
+var THREEFACEOBJ3D, THREEFACEOBJ3DPIVOTED, VACANTIMG;
 var LEFTEARTEMPLE, RIGHTEARTEMPLE;
 var ISDETECTED=false, ISLOADED=false;
 
@@ -76,6 +76,13 @@ function init_threeScene(spec, pathToModel) {
 
         }
     );
+    //LOAD VACANT FACE
+
+    VACANTIMG = new THREE.Mesh(threeStuffs.videoMesh.geometry,  create_mat2d(new THREE.TextureLoader().load('./assets/man_face.png'), true))
+    VACANTIMG.renderOrder = 999; // render last
+    VACANTIMG.frustumCulled = false;
+    threeStuffs.scene.add(VACANTIMG);
+
     
     //CREATE THE CAMERA
     const aspecRatio=spec.canvasElement.width / spec.canvasElement.height;
@@ -99,6 +106,31 @@ function main(pathToModel){
         }
     })
 } //end main()
+
+function create_mat2d(threeTexture, isTransparent){ //MT216 : we put the creation of the video material in a func because we will also use it for the frame
+    return new THREE.RawShaderMaterial({
+        depthWrite: false,
+        depthTest: false,
+        transparent: isTransparent,
+        vertexShader: "attribute vec2 position;\n\
+            varying vec2 vUV;\n\
+            void main(void){\n\
+                gl_Position=vec4(position, 0., 1.);\n\
+                vUV=0.5+0.5*position;\n\
+            }",
+        fragmentShader: "precision lowp float;\n\
+            uniform sampler2D samplerVideo;\n\
+            varying vec2 vUV;\n\
+            void main(void){\n\
+                gl_FragColor=texture2D(samplerVideo, vUV);\n\
+            }",
+         uniforms:{
+            samplerVideo: { value: threeTexture }
+         }
+    });
+}
+
+
 
 function init_faceFilter(videoSettings, pathToModel){
     console.log(pathToModel)
@@ -132,6 +164,7 @@ function init_faceFilter(videoSettings, pathToModel){
 
             if (ISDETECTED){
                 THREEFACEOBJ3D.visible = true;
+                VACANTIMG.visible = false;
                 //move the cube in order to fit the head
                 var tanFOV=Math.tan(THREECAMERA.aspect*THREECAMERA.fov*Math.PI/360); //tan(FOV/2), in radians
                 var W=detectState.s;  //relative width of the detection window (1-> whole width of the detection window)
@@ -161,6 +194,7 @@ function init_faceFilter(videoSettings, pathToModel){
             }
             else{
                 THREEFACEOBJ3D.visible = false;
+                VACANTIMG.visible = true;
             }
             
             THREE.JeelizHelper.render(detectState, THREECAMERA);
