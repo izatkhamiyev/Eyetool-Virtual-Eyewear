@@ -1,10 +1,11 @@
 const PORT = process.env.PORT || 3000;
 var express = require("express");
+var cors = require('cors');
 var app = express();    
 var path = require('path');
 var router = express.Router();
 var THREE = require('three');
-
+app.use(cors());
 app.use(express.static(__dirname));
 app.set('views', __dirname );
 app.set('view engine', 'jade')
