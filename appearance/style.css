@@ -5,15 +5,19 @@ a:hover {color: blue;}
     position: fixed; 
     max-height: 100%;
     max-width: 100%;
+    width: 800px;
+    height: 600px;
     left: 0%;
     top: 0%;
     width: 100vmin;
     transform: translate(0%, 0%) rotateY(180deg);
 } 
 
-@media (max-width: 787px) {
+@media (max-width: 500px) {
     #jeeFaceFilterCanvas {
         right: 0px;
+        height: 600px;
+        width: 400px;
         transform: rotateY(180deg);
     }
 }
