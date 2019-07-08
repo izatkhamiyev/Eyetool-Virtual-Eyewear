@@ -48,34 +48,52 @@ function init_threeScene(spec, pathToModel) {
     // const threeCube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     // threeCube.frustumCulled = false;
     // threeStuffs.faceObject.add(threeCube)
+    var mtlLoader = new THREE.MTLLoader();
     var loader = new THREE.OBJLoader();
 
     // load a resource
-    loader.load(
-        // resource URL
-        pathToModel,
-        // called when resource is loaded
-        function ( object ) {
-            // object.position.set(-0.5, -0.5, -0.5);
-            //console.log(object.children);
-            RIGHTEARTEMPLE = object.children[1];
-            LEFTEARTEMPLE = object.children[2];
-            THREEFACEOBJ3DPIVOTED.add( object );
-            
-        },
-        // called when loading is in progresses
-        function ( xhr ) {
-
-            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-        },
-        // called when loading has errors
-        function ( error ) {
-
-            console.log( 'An error happened' );
-
+    mtlLoader.load(
+        pathToModel.concat('.mtl'),
+        function(materials){
+            materials.preload();
+            var objLoader = new THREE.OBJLoader();
+            objLoader.setMaterials(materials);
+            objLoader.load(
+                // resource URL
+                pathToModel.concat('.obj'),
+                // called when resource is loaded
+                function ( object ) {
+                    // object.position.set(-0.5, -0.5, -0.5);
+                    let i = 0;
+                    for(i = 0; i < object.children.length; i++){
+                        var firstLetter = object.children[i].name.charAt(0);
+                        
+                        if (firstLetter == 'l'){
+                            LEFTEARTEMPLE = object.children[i];
+                        }
+                        else if(firstLetter == 'r'){
+                            RIGHTEARTEMPLE = object.children[i];
+                        }
+                    }
+                    THREEFACEOBJ3DPIVOTED.add( object );
+                    
+                },
+                // called when loading is in progresses
+                function ( xhr ) {
+        
+                    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        
+                },
+                // called when loading has errors
+                function ( error ) {
+        
+                    console.log( 'An error happened' );
+        
+                }
+            );
         }
-    );
+    )
+    
     //LOAD VACANT FACE
 
     VACANTIMG = new THREE.Mesh(threeStuffs.videoMesh.geometry,  create_mat2d(new THREE.TextureLoader().load('./assets/man_face.png'), true))
@@ -92,8 +110,10 @@ function init_threeScene(spec, pathToModel) {
     const ambient = new THREE.AmbientLight(0xffffff, 1);
     threeStuffs.scene.add(ambient)
 
-    // var dirLight = new THREE.DirectionalLight(0xffffff);
-    // dirLight.position.set(100, 1000, 100);
+    var dirLight = new THREE.DirectionalLight(0xffffff);
+    dirLight.position.set(200, 200, 200);
+
+    threeStuffs.scene.add(dirLight)
 } // end init_threeScene()
 
 //launched by body.onload() :

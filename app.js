@@ -11,7 +11,7 @@ app.set('views', __dirname );
 app.set('view engine', 'jade')
 
 app.get("/:id", function(req, res) {
-    pathToModel = `./models/${req.params.id}.obj`;
+    pathToModel = `./models/${req.params.id}`;
     res.render('index', {pathToModel: pathToModel});
   });
 
