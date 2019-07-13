@@ -15,9 +15,7 @@ a:hover {color: blue;}
 
 @media (max-width: 500px) {
     #jeeFaceFilterCanvas {
-        right: 0px;
-        height: 600px;
-        width: 400px;
-        transform: rotateY(180deg);
+        height: 600px !important;
+        width: 400px !important;
     }
 }
