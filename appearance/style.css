@@ -13,9 +13,9 @@ a:hover {color: blue;}
     transform: translate(0%, 0%) rotateY(180deg);
 } 
 
-@media (max-width: 500px) {
+/* @media (max-width: 500px) {
     #jeeFaceFilterCanvas {
         height: 600px !important;
         width: 400px !important;
     }
-}
+} */
