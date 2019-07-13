@@ -202,14 +202,15 @@ function init_faceFilter(videoSettings, pathToModel){
                 //move and rotate the cube
                 // THREEFACEOBJ3D.position.set(x, y+SETTINGS.pivotOffsetYZ[0],z+SETTINGS.pivotOffsetYZ[1]);
                 THREEFACEOBJ3D.rotation.set((rx+SETTINGS.rotationOffsetX)  / 10, ry / 10, rz / 10, "XYZ");
-
-                LEFTEARTEMPLE.visible = false;
-                RIGHTEARTEMPLE.visible = false;
-                if(ry > -0.1){
-                    RIGHTEARTEMPLE.visible = true;
-                }
-                if(ry < 0.1){
-                    LEFTEARTEMPLE.visible = true;
+                    if (typeof LEFTEARTEMPLE != "undefined" && typeof RIGHTEARTEMPLE != "undefined") {
+                    LEFTEARTEMPLE.visible = false;
+                    RIGHTEARTEMPLE.visible = false;
+                    if(ry > -0.1){
+                        RIGHTEARTEMPLE.visible = true;
+                    }
+                    if(ry < 0.1){
+                        LEFTEARTEMPLE.visible = true;
+                    }
                 }
             }
             else{
