@@ -15,7 +15,7 @@ a:hover {color: blue;}
 
 @media (max-width: 500px) {
     #jeeFaceFilterCanvas {
-        height: 300px !important;
-        width: 300px !important;
+        height: 500px !important;
+        width: 350px !important;
     }
 }
