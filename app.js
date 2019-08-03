@@ -23,18 +23,24 @@ app.post("/upload", function(req, res){
   console.log('Post request');
   req.pipe(req.busboy);
   if(req.busboy){
+    var counter = 0;
     req.busboy.on('file', function(fieldname, file, filename){
       console.log("Uploading: " + filename);
       fstream = fs.createWriteStream(__dirname + "/models/" + filename);
       file.pipe(fstream);
       fstream.on('close', function(){
         console.log("Upload Finished of " + filename);
+        counter++;
+        if(counter == 2){
+          res.send("Successfully uploaded");
+        }
       });
     });
-    res.send('Successfully Uploaded');
-    return;
+    
   }
-  res.send('Upload Failed');
+  else{
+    res.send('Upload Failed');
+  }
 });
 
 app.get("/:id", function(req, res) {
