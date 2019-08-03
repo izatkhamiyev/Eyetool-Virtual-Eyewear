@@ -49,7 +49,6 @@ function init_threeScene(spec, pathToModel) {
     // threeCube.frustumCulled = false;
     // threeStuffs.faceObject.add(threeCube)
     var mtlLoader = new THREE.MTLLoader();
-    var loader = new THREE.OBJLoader();
 
     // load a resource
     mtlLoader.load(
@@ -76,7 +75,6 @@ function init_threeScene(spec, pathToModel) {
                         }
                     }
                     THREEFACEOBJ3DPIVOTED.add( object );
-                    
                 },
                 // called when loading is in progresses
                 function ( xhr ) {
@@ -93,6 +91,40 @@ function init_threeScene(spec, pathToModel) {
             );
         }
     )
+    // var fbxLoader = new THREE.FBXLoader();
+    // fbxLoader.load(
+    //     // resource URL
+    //     pathToModel.concat('.fbx'),
+    //     // called when resource is loaded
+    //     function ( object ) {
+    //         // object.position.set(-0.5, -0.5, -0.5);
+    //         let i = 0;
+    //         for(i = 0; i < object.children.length; i++){
+    //             var firstLetter = object.children[i].name.charAt(0);
+                
+    //             if (firstLetter == 'l'){
+    //                 LEFTEARTEMPLE = object.children[i];
+    //             }
+    //             else if(firstLetter == 'r'){
+    //                 RIGHTEARTEMPLE = object.children[i];
+    //             }
+    //         }
+    //         THREEFACEOBJ3DPIVOTED.add( object );
+    //         THREEFACEOBJ3DPIVOTED.scale.set(0.01, 0.01, 0.01)
+    //     },
+    //     // called when loading is in progresses
+    //     function ( xhr ) {
+
+    //         console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+    //     },
+    //     // called when loading has errors
+    //     function ( error ) {
+
+    //         console.log( 'An error happened' );
+
+    //     }
+    // );
     
     //LOAD VACANT FACE
 
