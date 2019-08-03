@@ -25,9 +25,6 @@ app.post("/upload", function(req, res){
     console.log("Uploading: " + filename);
     fstream = fs.createWriteStream(__dirname + "/models/" + filename);
     file.pipe(fstream);
-    fstream.on('close', function(){
-      console.log("Upload Finished of " + filename);
-    });
   });
   res.send('Successfully Uploaded');
 });
