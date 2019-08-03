@@ -21,12 +21,19 @@ app.get("/upload", function(req, res){
 app.post("/upload", function(req, res){
   var fstream;
   req.pipe(req.busboy);
-  req.busboy.on('file', function(fieldname, file, filename){
-    console.log("Uploading: " + filename);
-    fstream = fs.createWriteStream(__dirname + "/models/" + filename);
-    file.pipe(fstream);
-  });
-  res.send('Successfully Uploaded');
+  if(req.busboy){
+    req.busboy.on('file', function(fieldname, file, filename){
+      console.log("Uploading: " + filename);
+      fstream = fs.createWriteStream(__dirname + "/models/" + filename);
+      file.pipe(fstream);
+      fstream.on('close', function(){
+        console.log("Upload Finished of " + filename);
+      });
+    });
+    res.send('Successfully Uploaded');
+    return;
+  }
+  res.send('Upload Failed');
 });
 
 app.get("/:id", function(req, res) {
