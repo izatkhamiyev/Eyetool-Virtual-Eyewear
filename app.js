@@ -20,6 +20,7 @@ app.get("/upload", function(req, res){
 
 app.post("/upload", function(req, res){
   var fstream;
+  console.log('Post request');
   req.pipe(req.busboy);
   if(req.busboy){
     req.busboy.on('file', function(fieldname, file, filename){
